@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SpatialDrip</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <style>
+    body {
+      background: radial-gradient(ellipse at center, #0f0f2b 0%, #000000 100%);
+      color: #fff;
+      font-family: 'Orbitron', sans-serif;
+    }
+    .glow { text-shadow: 0 0 8px #fff, 0 0 20px #7f5af0; }
+    .animate-spin-slow { animation: spin 20s linear infinite; }
+    @keyframes spin { from {transform: rotate(0deg);} to {transform: rotate(360deg);} }
+    .invert { filter: invert(1) hue-rotate(180deg); }
+  </style>
+</head>
+<body class="min-h-screen scroll-smooth">
+<!-- Sound -->
+<audio id="clickSound" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_a1a1a0d56e.mp3" preload="auto"></audio>
+<audio id="galacticSound" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_a1a1a0d56e.mp3" loop></audio>
+
+<!-- Toggle Theme -->
+<button onclick="document.body.classList.toggle('invert')" class="fixed top-4 right-4 bg-gray-800 text-white px-3 py-1 rounded">🌓</button>
+<!-- Toggle Sound -->
+<button onclick="document.getElementById('galacticSound').play()" class="fixed bottom-4 right-4 bg-purple-600 text-white px-4 py-2 rounded-full">🎧 Activar Audio</button>
+
+<header class="absolute w-full top-0 left-0 flex items-center justify-between p-4 z-10">
+  <h1 class="text-2xl font-bold glow">SpatialDrip</h1>
+  <nav class="space-x-4 hidden md:block">
+    <a href="#products" class="hover:text-purple-400">Products</a>
+    <a href="#vip" class="hover:text-purple-400">VIP</a>
+    <a href="#contact" class="hover:text-purple-400">Contact</a>
+  </nav>
+</header>
+
+<!-- Hero Section -->
+<section class="hero-bg relative h-screen flex flex-col justify-center items-center text-center px-4">
+  <div class="absolute top-10 w-24 h-24 md:w-32 md:h-32 animate-spin-slow">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/FullMoon2010.jpg/600px-FullMoon2010.jpg" alt="Moon" class="w-full h-full object-contain rounded-full" />
+  </div>
+  <h2 class="text-6xl md:text-8xl font-bold glow mb-6">FRESH FITS FROM OUTER SPACE</h2>
+  <a href="#products" class="mt-4 bg-purple-600 hover:bg-purple-800 text-white px-8 py-4 rounded-full transition-all" onclick="playClick()">💫 Explore Now</a>
+</section>
+
+<!-- Featured Products -->
+<section id="products" class="py-16 px-6 bg-black text-center">
+  <h2 class="text-4xl glow mb-8" data-aos="fade-up">Trending Drops</h2>
+  <div class="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3" data-aos="fade-up">
+    <img src="https://via.placeholder.com/400x500" alt="Look 1" class="rounded-lg shadow-lg mx-auto">
+    <img src="https://via.placeholder.com/400x500" alt="Look 2" class="rounded-lg shadow-lg mx-auto">
+    <img src="https://via.placeholder.com/400x500" alt="Look 3" class="rounded-lg shadow-lg mx-auto">
+  </div>
+</section>
+
+<!-- VIP Code -->
+<section id="vip" class="py-16 px-6 bg-gray-900 text-center">
+  <h2 class="text-3xl glow mb-6">¿Tienes un código secreto? 🔐</h2>
+  <input type="text" id="vipCode" placeholder="Ingresa tu código" class="p-3 rounded bg-gray-800 text-white border border-purple-700">
+  <button onclick="checkCode()" class="ml-2 bg-purple-600 px-4 py-2 rounded">Acceder</button>
+  <p id="vipStatus" class="mt-2 text-purple-300"></p>
+</section>
+
+<!-- Newsletter -->
+<section id="newsletter" class="py-16 px-6 bg-black text-center">
+  <h2 class="text-3xl glow mb-6">Join Our Galaxy</h2>
+  <div class="flex justify-center items-center space-x-4">
+    <input type="email" id="newsletter-email" placeholder="Your email" class="p-3 rounded bg-gray-800 text-white border border-purple-700 w-64">
+    <button id="newsletter-button" class="bg-purple-600 px-4 py-2 rounded">Sign Up</button>
+  </div>
+  <div id="newsletter-status" class="mt-3 text-purple-300"></div>
+</section>
+
+<!-- Photo Gallery -->
+<section id="photo-gallery" class="py-16 px-6 bg-gray-900 text-center">
+  <h2 class="text-3xl glow mb-8">Lookbook</h2>
+  <div class="gallery-container grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <img src="https://via.placeholder.com/400x300" alt="Gallery 1" class="rounded-lg shadow-lg mx-auto">
+    <img src="https://via.placeholder.com/400x300" alt="Gallery 2" class="rounded-lg shadow-lg mx-auto">
+    <img src="https://via.placeholder.com/400x300" alt="Gallery 3" class="rounded-lg shadow-lg mx-auto">
+  </div>
+</section>
+
+<!-- Smart Assistant -->
+<section id="smart-assistant" class="py-16 px-6 bg-black text-center">
+  <h2 class="text-3xl glow mb-8">Ask Our Bot</h2>
+  <div class="flex justify-center items-center space-x-4">
+    <input type="text" id="assistant-input" placeholder="Ask me anything about our products..." class="p-3 rounded bg-gray-800 text-white border border-purple-700 flex-grow max-w-md">
+    <button id="send-button" class="bg-purple-600 px-4 py-2 rounded">Ask</button>
+  </div>
+  <div id="assistant-response" class="mt-4 text-purple-300"></div>
+</section>
+
+<!-- Footer + Contact -->
+<a href="https://t.me/BrownyVerseBot" target="_blank" class="fixed bottom-6 left-4 bg-green-600 hover:bg-green-700 px-4 py-2 rounded-full text-white shadow-lg">💬 Escríbenos</a>
+<footer id="contact" class="text-center py-8 bg-black text-purple-300">
+  <p class="text-sm">© 2025 SpatialDrip | Powered by el Reino ✝️</p>
+  <p class="text-xs">Síguenos en IG @SpatialDrip | Telegram @BrownyVerseBot</p>
+</footer>
+
+<!-- Scripts -->
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>AOS.init();</script>
+<script>
+  function playClick() {
+    document.getElementById('clickSound').play();
+  }
+</script>
+<div id="lightbox" class="lightbox hidden">
+  <div class="lightbox-content">
+    <img src="" alt="Enlarged image">
+  </div>
+</div>
+<script src="/script.js" type="module"></script>
+</body>
+</html>
